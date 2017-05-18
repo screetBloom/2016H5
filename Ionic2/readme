@@ -1,3 +1,41 @@
 
 
 #ionic2   个人学习记录
+
+
+1.在ts中注入  
+import { Slides } from 'ionic-angular';//注入轮播
+import { ViewChild } from '@angular/core';
+
+2.要滑动的所有  子元素
+ @ViewChild('mySlider') slider:Slides;
+
+3.<ion-slides >包裹 <ion-slide >元素
+  到这里，可以滑动了
+  
+4.  设置 循环自动播放
+<ion-slides #mySlider autoplay="3000" loop=true pager=true>
+
+5.解决拖拽不轮播的问题
+<ion-slides #mySlider autoplay="3000" loop=true pager=true (ionSlideAutoplayStop)="autoPlay()">
+
+ts界面
+ autoPlay(){
+    this.slider.startAutoplay();
+  }
+  
+6.页面进入和离开时停止自动播放的解决方案
+
+//页面进入时启动自动播放
+  ionViewDidEnter(){
+    this.slider.startAutoplay();
+  }
+  //页面离开时停止自动播放
+  ionViewDidLeave(){
+    this.slider.stopAutoplay();
+  }
+
+
+
+
+
