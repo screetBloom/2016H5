@@ -1,3 +1,140 @@
 
 
 #上拉刷新和下拉加载更多
+
+
+A.上拉刷新
+    1. html界面
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+    2.ts界面
+     //上拉刷新
+  doRefresh(refresher) {
+    console.log('开始上拉刷新', refresher);
+
+    setTimeout(() => {
+      for (let i = 0; i < 5; i++) {
+        this.items.push( this.items.length );
+      }
+      console.log('上拉刷新结束');
+      refresher.complete();
+    }, 1000);
+  }
+  
+  
+B.下拉刷新
+    1. html界面
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+    2.ts界面
+     //下拉刷新
+  doInfinite(infiniteScroll) {
+    console.log('开始下拉刷新');
+
+    setTimeout(() => {
+      for (let i = 0; i < 10; i++) {
+        this.items.push( this.items.length );
+      }
+
+      console.log('下拉刷新结束');
+      infiniteScroll.complete();
+    }, 1000);
+  }
+  
+  
+//完整ts代码
+@Component({
+  selector: 'page-contact',
+  templateUrl: 'contact.html'
+})
+export class ContactPage {
+
+  //定义一个统一的item数据，用来下拉和上拉刷新用
+  items = [];
+
+  //初始进入界面载入界面的数据  ，这里设置10个
+  constructor() {
+    for (let i = 0; i < 10; i++) {
+      this.items.push( this.items.length );
+    }
+  }
+  
+  //上拉刷新
+  doRefresh(refresher) {
+    console.log('开始上拉刷新', refresher);
+
+    setTimeout(() => {
+      for (let i = 0; i < 5; i++) {
+        this.items.push( this.items.length );
+      }
+      console.log('上拉刷新结束');
+      refresher.complete();
+    }, 1000);
+  }
+
+  //下拉刷新
+  doInfinite(infiniteScroll) {
+    console.log('开始下拉刷新');
+
+    setTimeout(() => {
+      for (let i = 0; i < 10; i++) {
+        this.items.push( this.items.length );
+      }
+
+      console.log('下拉刷新结束');
+      infiniteScroll.complete();
+    }, 1000);
+  }
+}
+
+
+//完整的content代码
+
+<ion-content>
+  //上拉加载部分
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let i of items">{{i}}</ion-item>
+  </ion-list>
+
+  //下拉加载部分
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
