@@ -1,0 +1,7 @@
+<ion-content>
+    <ion-list inset>
+        <button (click)="pushQuestionPage( item.artid );" ion-item *ngFor="let item of items">
+          {{ item.title }}
+        </button>
+    </ion-list>
+</ion-content>
