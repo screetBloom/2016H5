@@ -1,0 +1,153 @@
+
+#这个部分主要讲一下怎么ionic2结合七牛实现图片选择和拍照
+
+前期准备：
+           (目前环境：
+            ionic：  3.3.0
+            cordova：  7.0.1
+            )
+
+1.导入cordova插件  （--nofetch 按低版本方式下载）
+   （1）.文件上传
+   ionic cordova plugin add cordova-plugin-file-transfer --nofetch
+   
+   （2）.camera
+    ionic cordova plugin add cordova-plugin-camera   --nofetch
+
+2.在ts中导入所需的类
+    import { Camera } from 'ionic-native';
+    import { Transfer } from 'ionic-native';
+    import { FileUploadOptions } from 'ionic-native';
+
+
+3.拍照
+  takePhoto() {
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
+      saveToPhotoAlbum:true,
+      sourceType:Camera.PictureSourceType.CAMERA,
+      correctOrientation: true
+    }
+    Camera.getPicture(options).then((imageData) => {
+      let base64Image =  imageData;
+      this.form.file = base64Image;
+      this.userHead=base64Image;
+
+      let toast = this.toastCtrl.create({
+        message: 'test！',
+        duration: 3000
+      });
+
+    }, (err) => {
+    });
+
+    //将img上传到qn
+    this.form.key=this.createcode(20);
+    this.qn.pushImg(this.form).then((data)=>{
+      this.upHead="http://test.10knet.com/"+data.hash;
+      alert("1>"+this.upHead);
+    },(error)=>{
+      let toast = this.toastCtrl.create({
+        message: '网络错误！',
+        duration: 3000
+      });
+      toast.present();
+    })//
+  }
+
+
+
+4.获取本地图片
+imgchange(){
+    //获取照片的
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType:0,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true
+    }
+    Camera.getPicture(options).then((imageData) => {
+      let base64Image =  imageData;
+      this.form.file = base64Image;
+      this.userHead=base64Image;
+
+    }, (err) => {
+      // Handle error
+    });
+
+   //将img上传到qn
+    this.form.key=this.createcode(20);
+    this.qn.pushImg(this.form).then((data)=>{
+     this.upHead="http://test.10knet.com/"+data.hash;
+     alert("2>"+this.upHead);
+    },(error)=>{
+      let toast = this.toastCtrl.create({
+        message: '网络错误！',
+        duration: 3000
+      });
+      toast.present();
+    })//??
+
+  }
+
+
+5.service的具体方法
+
+//图片上传到  qn空间
+  pushImg(form:any) {
+    var url = "http://upload.qiniu.com/";
+    return this.httpService.httpImgPost(form,url);
+  }
+
+  //获取七牛 上传密钥
+  GetQnToken() {
+    var url = this.API_URL + "/api/qntokenb";
+    return this.httpService.httpGetWithAuth(url);
+  }
+  
+ 
+ 6. http的post实现
+//上传到qn空间的post
+  public httpImgPost(body: any, url: string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');  （这个是必须的）
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(url, this.toQueryString(body),options).toPromise()
+      .then(res => res.json())
+      .catch(err => {
+        this.handleError(err);
+      });
+  }
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
