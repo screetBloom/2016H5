@@ -1,0 +1,39 @@
+
+
+#formdata和上传图片一样上传文件
+
+
+code：
+<form method="post" action="http://upload.qiniu.com/"
+      enctype="multipart/form-data">
+    <input name="key" type="hidden" value="94782536AA56677776">
+    <input name="x:<custom_name>" type="hidden" value="<custom_value>">
+    <input name="token" type="hidden" value="1JtRBM3GsKOtRanElwUwSj4BGMGNONDCmORs3x3S:qgfgqNWST6ENdR8Xd__5awzg-5g=:eyJyZXR1cm5Cb2R5Ijoie1wibmFtZVwiOiAkKGZuYW1lKSxcInNpemVcIjogJChmc2l6ZSksXCJ0eXBlXCI6ICQobWltZVR5cGUpLFwiY29sb3JcIjogJChleGlmLkNvbG9yU3BhY2UudmFsKSxcImtleVwiOiQoa2V5KSxcIndcIjogJChpbWFnZUluZm8ud2lkdGgpLFwiaFwiOiAkKGltYWdlSW5mby5oZWlnaHQpLFwiaGFzaFwiOiAkKGV0YWcpfSIsInNjb3BlIjoidGVzdCIsImRlYWRsaW5lIjoxNDk2NzYyODAxfQ==">
+    <input name="file" type="file" />
+    <input  type="submit" value="提交">
+</form>
+
+》》》》》》》》》》》》》》
+返回值：
+{
+"name": "VID.mp4",  <br>
+"size": 3978254,   <br>
+"type": "video/mp4",  <br>
+"color": null,  <br>
+"key": "94782536AA56677776",  <br>
+"w": null,  <br>
+"h": null,  <br>
+"hash": "FsagFhqyjsDmwSlOXgMBRwwvmkJu"  <br>
+}
+
+》》》》》》》》》》》》》》》》》
+在H5标签video中调用：(这种似乎只识别mp4、ogg等自带的格式，avi和wmv不可以)
+<video src="http://test.10knet.com/94782536AA56677776" controls="controls">
+    your browser does not support the video tag
+</video>
+
+
+
+
+
+
