@@ -1,0 +1,47 @@
+
+1.实现基本的拍照功能
+
+
+2.
+
+ //获取照片的
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,    //设置为base64  这一部很关键，获取到的是base64
+      sourceType: 0,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true
+    }
+    
+    let base64Image = imageData;   //得到base64的文件(确认一定为base64)
+      this.form.file = base64Image;  //上传的file
+      this.userHead = 'data:image/jpeg;base64,' + base64Image;  //用来给src显示的url
+      //
+      let url = "http://up.qiniu.com/putb64/-1";   //-1表示不上传key，由hash来确定位置
+      let xhr = new XMLHttpRequest();    //用原生的方式来实现  上传
+      let that=this;     //因为在ionic2中使用原生 ，必须要用 that来代表this，不然的话，会造成this指向  XMLHttpRequest
+      xhr.onreadystatechange=function(){    //发送成功之后的函数
+        if (xhr.readyState==4){    //如果发送成功
+          that.upHead="http://test.10knet.com/"+JSON.parse(xhr.response).hash;   定义这里要上传的图片 url存入到数据库
+        }
+      }
+      xhr.open("POST", url, true);      //true  表示异步
+      xhr.setRequestHeader("Content-Type", "application/octet-stream");     //定义base64上传的头部
+      xhr.setRequestHeader("Authorization", "UpToken "+this.form.token);     //这里绑定token时要特别注意  UpToken+空格+token
+      xhr.send(this.form.file);    //发送
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
