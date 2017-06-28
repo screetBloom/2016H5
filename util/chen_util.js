@@ -232,3 +232,31 @@ function chen_ajaxPost(url,data,callback) {
           obj.detachEvent('on'+type,fn);//ie，这里已经加上on，传参的时候注意不要重复加了
       }
   }
+
+//这个部分主要是针对video封装一些可以用到的方法，包括播放、暂停、控制大小
+   function chen_videoControl(obj){ //还是接收id
+      var myVideo=document.getElementById(obj);
+      
+      //暂停或播放
+      myVideo.playPause(){ 
+	if (myVideo.paused) 
+	  myVideo.play(); 
+	else 
+  	  myVideo.pause(); 
+	}   
+       //缩小到320宽 
+       myVideo.makeSmall(){ 
+	  myVideo.width=320; 
+       } 
+       //420宽 
+       myVideo.makeNormal(){ 
+	  myVideo.width=420; 
+       }
+       //560宽 
+       myVideo.makeBig(){ 
+	  myVideo.width=560; 
+       }  
+
+   }
+
+
