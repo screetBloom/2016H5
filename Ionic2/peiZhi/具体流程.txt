@@ -1,0 +1,65 @@
+
+
+
+1.  必要准备
+
+     
+2.  cordova platform  add android  --nofetch  (cordova版本大于7.0 后  结尾加  --nofetch)
+	移除android platform 
+        ionic cordova platform rm android
+        
+	更新代码(将Cordova构建部署到设备)
+	ionic cordova build android  --device  (优先选择)
+	cordova build android --prod 
+	cordova build android --prod --device
+
+
+	真机测试(adb devices  确定设备连接到电脑,检测不出，记得退出360手机模式)
+        cordova run android -l(从设备中重新加载 app文件)
+        cordova run android --device -l
+
+
+
+3. 为项目数字签名 (可以先跳过) ,需要在platforms/android下生成apk文件
+
+//  a.
+keytool -genkey -v -keystore huihuhir.jks -alias huihuhir -keyalg RSA -keysize 2048 -validity 10000
+
+//  b.
+keytool -genkey -v -keystore liufeng.keystore -alias liufeng.keystore -keyalg RSA -validity 20000
+
+4.  为apk文件签名
+ jarsigner -verbose -keystore liufeng.keystore -signedjar android-release-unsigned.apk huihu.apk liufeng.keystore
+说明：
+      1）jarsigner是工具名称，-verbose表示将签名过程中的详细信息打印出来，显示在dos窗口中；
+      2）-keystore liufeng.keystore 表示签名所使用的数字证书所在位置，这里没有写路径，表示在当前目录下；
+      3）-signedjar notepad_signed.apk notepad.apk 表示给notepad.apk文件签名，签名后的文件名称为notepad_signed.apk；
+      4）最后面的liufeng.keystore 表示证书的别名，对应于生成数字证书时-alias参数后面的名称
+
+name.jks，name可以自定义，jks是Android studio生成的签名文件的后缀，这里默认使用jks也可以；
+alias_name是别名，也是自定义的。
+
+
+
+4.   
+    发行版本 ：cordova  build  --release  android  
+    调试版本 ：cordova  build   android 
+
+
+
+
+D:\ASWorkpace\MyApplication  下的gradle.properties 的 #org.gradle.jvmargs=-Xmx1024m 被我修改成1024
+
+
+
+找个图片转化成  base64，然后测试
+
+
+
+jpush  在   D:\edx
+
+
+
+
+
+
