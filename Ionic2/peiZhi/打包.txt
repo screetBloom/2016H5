@@ -1,0 +1,6 @@
+
+
+_JAVA_OPTIONS
+
+
+-Xmx512M
