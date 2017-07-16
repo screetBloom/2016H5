@@ -1,0 +1,8 @@
+
+
+
+1.  ionic cordova plugin add cordova-plugin-file-transfer --nofetch
+
+
+
+2.  ionic cordova plugin add cordova-plugin-camera   --nofetch
