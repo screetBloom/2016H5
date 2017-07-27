@@ -329,7 +329,7 @@ function chen_makeMobileTap() {
 }
 
 
-//程序休眠几秒
+//程序休眠几秒;会导致页面一直处于加载状态
   javaSleep(numberMillis) {
   var now = new Date();
   var exitTime = now.getTime() + numberMillis;
