@@ -329,7 +329,16 @@ function chen_makeMobileTap() {
 }
 
 
-
+//程序休眠几秒
+  javaSleep(numberMillis) {
+  var now = new Date();
+  var exitTime = now.getTime() + numberMillis;
+  while (true) {
+    now = new Date();
+    if (now.getTime() > exitTime)
+      return;
+  }
+}
 
 
 
