@@ -7,7 +7,7 @@
 
 # 有道笔记老样子，还是原来的账号密码
 
-具体详情看个人博客，![](https://screetbloom.github.io/)
+具体详情看个人博客，![点击here](https://screetbloom.github.io/)
 
 ![](http://imgsrc.baidu.com/forum/pic/item/89f1e8198618367a68b058152f738bd4b21ce559.jpg)
 
